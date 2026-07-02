@@ -1,5 +1,5 @@
 {
-  "name": "ui-icons",
+  "name": "@votha-sok/ui-icons",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^22.0.0",
@@ -8,5 +8,12 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/votha-sok/ui-core.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }
