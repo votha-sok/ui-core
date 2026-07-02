@@ -1,0 +1,12 @@
+@if (icon()) {
+  <cui-icon [name]="icon()!" size="xs" color="currentColor" />
+}
+<span class="cui-chip__label"><ng-content /></span>
+@if (dismissible()) {
+  <button class="cui-chip__dismiss"
+    (click)="onDismiss($event)"
+    [attr.aria-label]="'Remove'"
+    tabindex="-1">
+    <cui-icon name="close" size="xs" color="currentColor" />
+  </button>
+}

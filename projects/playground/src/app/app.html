@@ -1,0 +1,254 @@
+<!-- Toast outlet — renders ToastService queue, place once near app root -->
+<cui-toast-outlet />
+
+<div class="min-h-screen flex flex-col" style="background:var(--mat-sys-background);">
+
+  <!-- Topbar -->
+  <header class="flex items-center justify-between px-6 h-14 shrink-0"
+    style="background:var(--cui-topbar-bg);color:var(--cui-topbar-text);border-bottom:1px solid var(--cui-topbar-border);box-shadow:var(--cui-shadow-sm);">
+    <div class="flex items-center gap-2">
+      <cui-icon name="company-logo" size="sm" [color]="'var(--cui-topbar-text)'" />
+      <span class="font-bold tracking-tight">company-ui</span>
+    </div>
+    <div class="flex items-center gap-3">
+      @for (theme of themeService.availableThemes; track theme.name) {
+        <button (click)="themeService.setTheme(theme.name)"
+          class="px-2 py-1 text-xs rounded border transition-all"
+          [style.border-color]="themeService.currentThemeName()===theme.name?'currentColor':'transparent'"
+          style="background:transparent;color:var(--cui-topbar-text);cursor:pointer;">
+          {{ theme.label }}
+        </button>
+      }
+      <cui-avatar name="Alex Morgan" size="sm" status="online"
+        cuiTooltip="Alex Morgan — Admin" cuiTooltipPosition="below" />
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-56 shrink-0 flex flex-col py-3 overflow-y-auto"
+      style="background:var(--cui-sidebar-bg);border-right:1px solid var(--cui-sidebar-border);">
+      @for (item of menuService.resolvedItems(); track item.id) {
+        @if (item.isVisible) {
+          @if (item.dividerBefore) {
+            <hr class="my-2 mx-3" style="border-color:var(--cui-sidebar-border);" />
+          }
+          @if (item.children?.length) {
+            <button (click)="menuService.toggle(item.id)"
+              class="flex items-center gap-2.5 px-4 py-2 w-full text-left text-sm font-medium"
+              style="background:transparent;border:none;cursor:pointer;"
+              [style.color]="item.isActive?'var(--cui-sidebar-active-text)':'var(--cui-sidebar-text)'"
+              [style.background]="item.isActive?'var(--cui-sidebar-active-bg)':'transparent'">
+              <cui-icon [name]="item.icon||'circle'" size="sm" color="currentColor" />
+              <span class="flex-1">{{ item.label }}</span>
+              <cui-icon [name]="item.expanded?'expand_less':'expand_more'" size="xs" color="currentColor" />
+            </button>
+            @if (item.expanded) {
+              @for (child of item.children; track child.id) {
+                <div class="flex items-center gap-2.5 pl-9 pr-4 py-1.5 text-sm cursor-pointer"
+                  [style.color]="$any(child).isExactActive?'var(--cui-sidebar-active-text)':'var(--cui-sidebar-text)'"
+                  [style.background]="$any(child).isExactActive?'var(--cui-sidebar-active-bg)':'transparent'">
+                  <cui-icon [name]="child.icon||'circle'" size="xs" color="currentColor" />
+                  <span class="flex-1">{{ child.label }}</span>
+                  @if (child.badge) {
+                    <cui-badge color="error" size="sm">{{ child.badge }}</cui-badge>
+                  }
+                </div>
+              }
+            }
+          } @else {
+            <div class="flex items-center gap-2.5 px-4 py-2 text-sm font-medium cursor-pointer"
+              [style.background]="item.isExactActive?'var(--cui-sidebar-active-bg)':'transparent'"
+              [style.color]="item.isExactActive?'var(--cui-sidebar-active-text)':'var(--cui-sidebar-text)'">
+              <cui-icon [name]="item.icon||'circle'" size="sm" color="currentColor" />
+              {{ item.label }}
+            </div>
+          }
+        }
+      }
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 overflow-auto p-6 flex flex-col gap-8"
+      style="background:var(--mat-sys-background);">
+
+      <h1 class="text-2xl font-bold" style="color:var(--mat-sys-on-background);">
+        Step 6 — ui-core Component Library
+      </h1>
+
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+
+        <!-- BUTTON -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Button</mat-card-title></mat-card-header>
+          <mat-card-content class="flex flex-col gap-3 pt-4">
+            <div class="flex flex-wrap gap-2">
+              <cui-button variant="filled"   (cuiClick)="toast('success')">Filled</cui-button>
+              <cui-button variant="outlined" color="secondary">Outlined</cui-button>
+              <cui-button variant="tonal"    color="tertiary">Tonal</cui-button>
+              <cui-button variant="text"     color="error">Text</cui-button>
+              <cui-button variant="elevated">Elevated</cui-button>
+            </div>
+            <div class="flex flex-wrap gap-2 items-center">
+              <cui-button size="sm" iconLeft="add">Small</cui-button>
+              <cui-button size="md" iconLeft="shield">Medium</cui-button>
+              <cui-button size="lg" iconRight="arrow_forward">Large</cui-button>
+              <cui-button [loading]="true">Loading</cui-button>
+              <cui-button [disabled]="true">Disabled</cui-button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- BADGE -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Badge</mat-card-title></mat-card-header>
+          <mat-card-content class="flex flex-col gap-3 pt-4">
+            <div class="flex flex-wrap gap-2">
+              <cui-badge color="primary">Primary</cui-badge>
+              <cui-badge color="secondary" variant="filled">Secondary</cui-badge>
+              <cui-badge color="error" variant="filled">Error</cui-badge>
+              <cui-badge color="warning">Warning</cui-badge>
+              <cui-badge color="success">Success</cui-badge>
+              <cui-badge color="neutral" variant="outlined">Neutral</cui-badge>
+            </div>
+            <div class="flex flex-wrap gap-2 items-center">
+              <cui-badge size="sm" color="error" variant="filled">SM</cui-badge>
+              <cui-badge size="md" color="primary" variant="filled">MD</cui-badge>
+              <cui-badge size="lg" color="success" variant="filled">LG</cui-badge>
+              <span class="text-sm" style="color:var(--mat-sys-on-surface-variant)">Dots:</span>
+              <cui-badge [dot]="true" color="success" variant="filled" ariaLabel="Online" />
+              <cui-badge [dot]="true" color="error"   variant="filled" ariaLabel="Error" />
+              <cui-badge [dot]="true" color="warning" variant="filled" ariaLabel="Warning" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- AVATAR -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Avatar</mat-card-title></mat-card-header>
+          <mat-card-content class="flex flex-col gap-4 pt-4">
+            <div class="flex items-end gap-3">
+              <cui-avatar size="xs" name="Alice B" />
+              <cui-avatar size="sm" name="Bob C" />
+              <cui-avatar size="md" name="Carol D" status="online" />
+              <cui-avatar size="lg" name="David E" status="away" />
+              <cui-avatar size="xl" name="Eva F"   status="busy" />
+            </div>
+            <div class="flex items-center gap-3">
+              <cui-avatar src="https://i.pravatar.cc/150?img=1" name="User 1" size="md" status="online" />
+              <cui-avatar src="https://i.pravatar.cc/150?img=5" name="User 5" size="md" status="away" />
+              <cui-avatar src="broken-url" name="Fallback Test" size="md" />
+              <cui-avatar name="Square" shape="square" size="md" />
+              <cui-avatar name="Rounded" shape="rounded" size="md" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- SPINNER & SKELETON -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Spinner & Skeleton</mat-card-title></mat-card-header>
+          <mat-card-content class="flex flex-col gap-4 pt-4">
+            <div class="flex items-end gap-4">
+              <cui-spinner size="xs" /><cui-spinner size="sm" />
+              <cui-spinner size="md" /><cui-spinner size="lg" /><cui-spinner size="xl" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <cui-skeleton variant="text" width="80%" />
+              <cui-skeleton variant="text" width="60%" />
+              <div class="flex gap-3 mt-1">
+                <cui-skeleton variant="circle" width="40px" height="40px" />
+                <div class="flex-1 flex flex-col gap-2 justify-center">
+                  <cui-skeleton variant="text" width="50%" />
+                  <cui-skeleton variant="text" width="30%" />
+                </div>
+              </div>
+              <cui-skeleton variant="rect" height="80px" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- PROGRESS -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Progress</mat-card-title></mat-card-header>
+          <mat-card-content class="flex flex-col gap-4 pt-4">
+            <cui-progress [value]="progress()" [showLabel]="true" />
+            <cui-progress [value]="progress()" color="success" [showLabel]="true" />
+            <cui-progress [value]="progress()" color="warning" [striped]="true" />
+            <cui-progress [indeterminate]="true" color="tertiary" />
+            <div class="flex gap-2">
+              <cui-button size="sm" variant="outlined" (cuiClick)="progress.update(v => Math.max(0, v-10))">-10</cui-button>
+              <cui-button size="sm" variant="outlined" (cuiClick)="progress.update(v => Math.min(100, v+10))">+10</cui-button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- CHIP -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Chip</mat-card-title></mat-card-header>
+          <mat-card-content class="flex flex-col gap-4 pt-4">
+            <div class="flex flex-wrap gap-2" role="list">
+              @for (tag of chipTags(); track tag) {
+                <cui-chip color="primary" [dismissible]="true" (dismissed)="removeChip(tag)">
+                  {{ tag }}
+                </cui-chip>
+              }
+              @if (chipTags().length === 0) {
+                <span class="text-sm" style="color:var(--mat-sys-on-surface-variant);">
+                  All chips dismissed. Refresh to reset.
+                </span>
+              }
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <cui-chip color="success" icon="check_circle" variant="soft">Verified</cui-chip>
+              <cui-chip color="error"   icon="error"        variant="filled">Flagged</cui-chip>
+              <cui-chip color="warning" icon="warning"      variant="outlined">Review</cui-chip>
+              <cui-chip color="neutral" [selectable]="true" [selected]="true">Selected</cui-chip>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- TOAST DEMO -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Toast Outlet + Loading Overlay</mat-card-title></mat-card-header>
+          <mat-card-content class="flex flex-col gap-3 pt-4">
+            <div class="flex flex-wrap gap-2">
+              <cui-button variant="tonal" color="primary"   size="sm" (cuiClick)="toast('success')">Success</cui-button>
+              <cui-button variant="tonal" color="error"     size="sm" (cuiClick)="toast('error')">Error</cui-button>
+              <cui-button variant="tonal" color="secondary" size="sm" (cuiClick)="toast('warning')">Warning</cui-button>
+              <cui-button variant="tonal" color="tertiary"  size="sm" (cuiClick)="toast('info')">Info</cui-button>
+            </div>
+            <div class="relative rounded-lg p-4 flex items-center justify-center h-24"
+              style="background:var(--mat-sys-surface-container);border-radius:var(--cui-radius-md);">
+              <span class="text-sm" style="color:var(--mat-sys-on-surface-variant);">
+                This area has a loading overlay
+              </span>
+              <cui-loading-overlay [show]="cardLoading()" label="Refreshing data…" />
+            </div>
+            <cui-button size="sm" variant="outlined" (cuiClick)="simulateCardLoad()">
+              Trigger 2s overlay
+            </cui-button>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- EMPTY STATE -->
+        <mat-card style="background:var(--cui-card-bg);border:1px solid var(--cui-card-border);border-radius:var(--cui-radius-md);">
+          <mat-card-header><mat-card-title style="color:var(--mat-sys-on-surface);">Empty State</mat-card-title></mat-card-header>
+          <mat-card-content>
+            <cui-empty-state
+              icon="search_off"
+              title="No cases found"
+              description="Try adjusting your filters or search terms to find what you're looking for.">
+              <cui-button cuiEmptyAction size="sm" variant="outlined" iconLeft="tune">
+                Adjust Filters
+              </cui-button>
+            </cui-empty-state>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<router-outlet />

@@ -1,0 +1,35 @@
+@switch (source()) {
+
+  @case ('svg') {
+    <!--
+      Inline SVG path: the sanitized SVG string is bound via [innerHTML].
+      The wrapping <span> is needed because Angular's [innerHTML] binding
+      requires a host element — we can't bind directly to the component host.
+      It is sized to fill the host completely so the SVG scales correctly.
+    -->
+    <span
+      class="cui-icon__svg-wrapper"
+      [innerHTML]="svgContent()"
+      [style.color]="resolvedColor()"
+      [style.width.px]="resolvedSize()"
+      [style.height.px]="resolvedSize()">
+    </span>
+  }
+
+  @case ('material-symbol') {
+    <!--
+      Material Symbols path: the icon name is used as a font ligature.
+      The font-size and line-height must match exactly to avoid clipping.
+      font-variation-settings controls optical weight/fill/grade — we use
+      the defaults here; consumers can override via CSS if needed.
+    -->
+    <span
+      [class]="materialSymbolClass()"
+      class="cui-icon__symbol"
+      [style.font-size.px]="resolvedSize()"
+      [style.line-height.px]="resolvedSize()"
+      [style.color]="resolvedColor()"
+      aria-hidden="true">{{ name() }}</span>
+  }
+
+}

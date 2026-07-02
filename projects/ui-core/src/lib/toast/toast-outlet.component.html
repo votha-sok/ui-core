@@ -1,0 +1,42 @@
+@for (pos of positions; track pos) {
+  @if (toastsForPosition(pos).length > 0) {
+    <div class="cui-toast-stack fixed z-50 flex flex-col gap-2 pointer-events-none"
+      [class]="positionClass(pos)"
+      style="max-width: 380px; min-width: 280px;">
+
+      @for (toast of toastsForPosition(pos); track toast.id) {
+        <div class="cui-toast pointer-events-auto flex items-start gap-3 px-4 py-3 rounded-lg shadow-lg"
+          [class]="'cui-toast--' + toast.level"
+          role="alert"
+          [attr.aria-live]="toast.level === 'error' ? 'assertive' : 'polite'">
+
+          <cui-icon [name]="iconFor(toast.level)" size="sm"
+            color="currentColor" class="shrink-0 mt-0.5" />
+
+          <div class="flex-1 min-w-0">
+            @if (toast.title) {
+              <p class="font-semibold text-sm leading-snug">{{ toast.title }}</p>
+            }
+            <p class="text-sm leading-snug" [class.mt-0.5]="toast.title">
+              {{ toast.message }}
+            </p>
+            @if (toast.actionLabel && toast.onAction) {
+              <button class="cui-toast__action mt-2 text-xs font-bold uppercase tracking-wide"
+                (click)="toast.onAction!()">
+                {{ toast.actionLabel }}
+              </button>
+            }
+          </div>
+
+          @if (toast.dismissible) {
+            <button class="cui-toast__close shrink-0 opacity-70 hover:opacity-100"
+              (click)="dismiss(toast.id)"
+              aria-label="Dismiss notification">
+              <cui-icon name="close" size="xs" color="currentColor" />
+            </button>
+          }
+        </div>
+      }
+    </div>
+  }
+}

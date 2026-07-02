@@ -1,0 +1,19 @@
+<span class="cui-btn__inner" (click)="handleClick($event)" matRipple
+  [matRippleDisabled]="disabled() || loading()"
+  [matRippleColor]="'var(--cui-btn-ripple, rgba(255,255,255,0.2))'">
+
+  @if (loading()) {
+    <span class="cui-btn__spinner" aria-hidden="true"></span>
+  } @else if (iconLeft()) {
+    <cui-icon [name]="iconLeft()!" [size]="iconSize()" color="currentColor" />
+  }
+
+  <span class="cui-btn__label">
+    <ng-content />
+  </span>
+
+  @if (!loading() && iconRight()) {
+    <cui-icon [name]="iconRight()!" [size]="iconSize()" color="currentColor" />
+  }
+
+</span>

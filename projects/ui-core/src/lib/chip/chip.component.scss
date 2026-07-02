@@ -1,0 +1,48 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: default;
+  transition: background 120ms, box-shadow 120ms;
+  user-select: none;
+  white-space: nowrap;
+
+  &.cui-chip--selectable { cursor: pointer; }
+  &.cui-chip--disabled   { opacity: 0.45; cursor: not-allowed; }
+  &:focus-visible { outline: 2px solid var(--mat-sys-primary); outline-offset: 2px; }
+}
+
+// Color vars
+:host(.cui-chip--primary)   { --_bg: var(--mat-sys-primary);   --_fg: var(--mat-sys-on-primary);   --_soft: var(--mat-sys-primary-container);   --_soft-fg: var(--mat-sys-on-primary-container);   --_border: var(--mat-sys-primary); }
+:host(.cui-chip--secondary) { --_bg: var(--mat-sys-secondary); --_fg: var(--mat-sys-on-secondary); --_soft: var(--mat-sys-secondary-container); --_soft-fg: var(--mat-sys-on-secondary-container); --_border: var(--mat-sys-secondary); }
+:host(.cui-chip--tertiary)  { --_bg: var(--mat-sys-tertiary);  --_fg: var(--mat-sys-on-tertiary);  --_soft: var(--mat-sys-tertiary-container);  --_soft-fg: var(--mat-sys-on-tertiary-container);  --_border: var(--mat-sys-tertiary); }
+:host(.cui-chip--error)     { --_bg: var(--mat-sys-error);     --_fg: var(--mat-sys-on-error);     --_soft: var(--mat-sys-error-container);     --_soft-fg: var(--mat-sys-on-error-container);     --_border: var(--mat-sys-error); }
+:host(.cui-chip--success)   { --_bg: #059669; --_fg: #fff; --_soft: #d1fae5; --_soft-fg: #064e3b; --_border: #059669; }
+:host(.cui-chip--warning)   { --_bg: #d97706; --_fg: #fff; --_soft: #fef3c7; --_soft-fg: #92400e; --_border: #d97706; }
+:host(.cui-chip--neutral)   { --_bg: var(--mat-sys-surface-variant); --_fg: var(--mat-sys-on-surface-variant); --_soft: var(--mat-sys-surface-container); --_soft-fg: var(--mat-sys-on-surface); --_border: var(--mat-sys-outline); }
+
+// Variants
+:host(.cui-chip--filled)   { background: var(--_bg); color: var(--_fg); }
+:host(.cui-chip--soft)     { background: var(--_soft); color: var(--_soft-fg); }
+:host(.cui-chip--outlined) { background: transparent; color: var(--_fg); border: 1.5px solid var(--_border); }
+
+:host(.cui-chip--selected) { box-shadow: inset 0 0 0 2px var(--_bg); }
+
+.cui-chip__dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  border-radius: 50%;
+  margin-right: -2px;
+  &:hover { opacity: 1; }
+}

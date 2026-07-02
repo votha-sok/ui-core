@@ -1,0 +1,68 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "paths": {
+      "ui-core": ["./dist/ui-core"],
+      "ui-icons": ["./dist/ui-icons"],
+      "ui-layout": ["./dist/ui-layout"],
+      "ui-theme": ["./dist/ui-theme"],
+      "ui-utils": ["./dist/ui-utils"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/playground/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/playground/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui-utils/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ui-utils/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui-icons/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ui-icons/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui-theme/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ui-theme/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui-core/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ui-core/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui-layout/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ui-layout/tsconfig.spec.json"
+    }
+  ]
+}

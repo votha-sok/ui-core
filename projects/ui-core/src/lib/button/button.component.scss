@@ -1,0 +1,104 @@
+// ── Host ─────────────────────────────────────────────────────────────────────
+:host {
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: var(--cui-radius-md);
+  outline: none;
+  font-family: var(--mat-sys-label-large-font, inherit);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: opacity 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+
+  &.cui-btn--full { width: 100%; }
+  &.cui-btn--disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+}
+
+// ── Inner wrapper (holds ripple + content) ────────────────────────────────────
+.cui-btn__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  position: relative;
+}
+
+// ── Sizes ─────────────────────────────────────────────────────────────────────
+:host(.cui-btn--sm) .cui-btn__inner { padding: 6px 14px; font-size: 12px; }
+:host(.cui-btn--md) .cui-btn__inner { padding: 9px 20px; font-size: 14px; }
+:host(.cui-btn--lg) .cui-btn__inner { padding: 12px 28px; font-size: 16px; }
+
+// ── Colour maps ───────────────────────────────────────────────────────────────
+// Define per-color CSS custom properties. Variants read from these.
+:host(.cui-btn--primary)   { --_bg: var(--mat-sys-primary);   --_fg: var(--mat-sys-on-primary);   --_border: var(--mat-sys-primary);   --_container: var(--mat-sys-primary-container);   --_on-container: var(--mat-sys-on-primary-container); }
+:host(.cui-btn--secondary) { --_bg: var(--mat-sys-secondary); --_fg: var(--mat-sys-on-secondary); --_border: var(--mat-sys-secondary); --_container: var(--mat-sys-secondary-container); --_on-container: var(--mat-sys-on-secondary-container); }
+:host(.cui-btn--tertiary)  { --_bg: var(--mat-sys-tertiary);  --_fg: var(--mat-sys-on-tertiary);  --_border: var(--mat-sys-tertiary);  --_container: var(--mat-sys-tertiary-container);  --_on-container: var(--mat-sys-on-tertiary-container); }
+:host(.cui-btn--error)     { --_bg: var(--mat-sys-error);     --_fg: var(--mat-sys-on-error);     --_border: var(--mat-sys-error);     --_container: var(--mat-sys-error-container);     --_on-container: var(--mat-sys-on-error-container); }
+:host(.cui-btn--neutral)   { --_bg: var(--mat-sys-surface-variant); --_fg: var(--mat-sys-on-surface-variant); --_border: var(--mat-sys-outline); --_container: var(--mat-sys-surface-container); --_on-container: var(--mat-sys-on-surface); }
+
+// ── Variants ──────────────────────────────────────────────────────────────────
+:host(.cui-btn--filled) {
+  background: var(--_bg);
+  color: var(--_fg);
+  border: 2px solid transparent;
+  box-shadow: var(--cui-shadow-sm);
+  &:hover:not(.cui-btn--disabled) { filter: brightness(1.08); box-shadow: var(--cui-shadow-md); }
+  &:active:not(.cui-btn--disabled) { filter: brightness(0.96); box-shadow: none; }
+}
+
+:host(.cui-btn--outlined) {
+  background: transparent;
+  color: var(--_bg);
+  border: 2px solid var(--_border);
+  &:hover:not(.cui-btn--disabled) { background: color-mix(in srgb, var(--_bg) 8%, transparent); }
+  &:active:not(.cui-btn--disabled) { background: color-mix(in srgb, var(--_bg) 12%, transparent); }
+}
+
+:host(.cui-btn--text) {
+  background: transparent;
+  color: var(--_bg);
+  border: 2px solid transparent;
+  &:hover:not(.cui-btn--disabled) { background: color-mix(in srgb, var(--_bg) 8%, transparent); }
+  &:active:not(.cui-btn--disabled) { background: color-mix(in srgb, var(--_bg) 12%, transparent); }
+}
+
+:host(.cui-btn--elevated) {
+  background: var(--mat-sys-surface);
+  color: var(--_bg);
+  border: 2px solid transparent;
+  box-shadow: var(--cui-shadow-md);
+  &:hover:not(.cui-btn--disabled) { box-shadow: var(--cui-shadow-lg); }
+}
+
+:host(.cui-btn--tonal) {
+  background: var(--_container);
+  color: var(--_on-container);
+  border: 2px solid transparent;
+  &:hover:not(.cui-btn--disabled) { filter: brightness(0.96); }
+}
+
+// Focus ring (keyboard-only via :focus-visible)
+:host(:focus-visible) {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}
+
+// ── Loading spinner ───────────────────────────────────────────────────────────
+.cui-btn__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: cui-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes cui-spin {
+  to { transform: rotate(360deg); }
+}

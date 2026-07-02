@@ -1,0 +1,60 @@
+// ── Host ─────────────────────────────────────────────────────────────────────
+// Host styles are applied via the host binding in the component class
+// (display, align-items, justify-content, width, height).
+// We add :host here only for styles that cannot be expressed as bindings.
+
+:host {
+  // Prevent the icon from shrinking inside a flex row when space is tight.
+  flex-shrink: 0;
+  // Ensure the icon participates in text-level vertical alignment correctly.
+  vertical-align: middle;
+  // Icons should never select text accidentally.
+  user-select: none;
+}
+
+// ── SVG wrapper ───────────────────────────────────────────────────────────────
+
+.cui-icon__svg-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // Pass the current colour down into the SVG via the CSS `color` property.
+  // SVG elements that use `fill="currentColor"` or `stroke="currentColor"`
+  // will automatically pick up the colour set on this wrapper.
+  color: inherit;
+
+  // Ensure the wrapper — and the SVG inside it — fills exactly the
+  // dimensions set by the host bindings.
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+}
+
+// ── Material Symbol ───────────────────────────────────────────────────────────
+
+.cui-icon__symbol {
+  // Material Symbols is a variable font. These settings match the defaults
+  // from the Google Fonts CSS, kept explicit here so they don't depend on
+  // the order in which the font CSS loads.
+  font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  // Prevent the text cursor from appearing when hovering over icons.
+  cursor: inherit;
+  // Ligature rendering requires letter-spacing: normal and white-space: nowrap.
+  letter-spacing: normal;
+  white-space: nowrap;
+  // Prevent font smoothing from blurring small icon sizes.
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+  // Variable font axes — match the defaults from the font CSS:
+  // FILL=0 (unfilled/outlined), wght=400, GRAD=0, opsz=24
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

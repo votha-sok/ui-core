@@ -1,0 +1,25 @@
+.cui-toast {
+  &--success { background: var(--mat-sys-primary-container);   color: var(--mat-sys-on-primary-container); }
+  &--error   { background: var(--mat-sys-error-container);     color: var(--mat-sys-on-error-container); }
+  &--warning { background: #fef3c7;                            color: #92400e; }
+  &--info    { background: var(--mat-sys-surface-container-highest); color: var(--mat-sys-on-surface); }
+}
+
+.cui-toast__action {
+  background: none;
+  border: none;
+  color: currentColor;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.8;
+  &:hover { opacity: 1; }
+}
+
+.cui-toast__close {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  color: inherit;
+}

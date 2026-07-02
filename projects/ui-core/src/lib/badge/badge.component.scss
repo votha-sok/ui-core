@@ -1,0 +1,33 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+// ── Sizes ─────────────────────────────────────────────────────────────────────
+:host(.cui-badge--sm) { padding: 2px 7px;  font-size: 10px; }
+:host(.cui-badge--md) { padding: 3px 9px;  font-size: 11px; }
+:host(.cui-badge--lg) { padding: 4px 11px; font-size: 13px; }
+
+// Dot mode
+:host(.cui-badge--dot) { padding: 0; width: 8px; height: 8px; }
+:host(.cui-badge--dot.cui-badge--lg) { width: 10px; height: 10px; }
+
+// ── Color variables ───────────────────────────────────────────────────────────
+:host(.cui-badge--primary)   { --_bg: var(--mat-sys-primary);   --_fg: var(--mat-sys-on-primary);   --_soft-bg: var(--mat-sys-primary-container);   --_soft-fg: var(--mat-sys-on-primary-container);   --_border: var(--mat-sys-primary); }
+:host(.cui-badge--secondary) { --_bg: var(--mat-sys-secondary); --_fg: var(--mat-sys-on-secondary); --_soft-bg: var(--mat-sys-secondary-container); --_soft-fg: var(--mat-sys-on-secondary-container); --_border: var(--mat-sys-secondary); }
+:host(.cui-badge--tertiary)  { --_bg: var(--mat-sys-tertiary);  --_fg: var(--mat-sys-on-tertiary);  --_soft-bg: var(--mat-sys-tertiary-container);  --_soft-fg: var(--mat-sys-on-tertiary-container);  --_border: var(--mat-sys-tertiary); }
+:host(.cui-badge--error)     { --_bg: var(--mat-sys-error);     --_fg: var(--mat-sys-on-error);     --_soft-bg: var(--mat-sys-error-container);     --_soft-fg: var(--mat-sys-on-error-container);     --_border: var(--mat-sys-error); }
+:host(.cui-badge--warning)   { --_bg: #d97706; --_fg: #ffffff; --_soft-bg: #fef3c7; --_soft-fg: #92400e; --_border: #d97706; }
+:host(.cui-badge--success)   { --_bg: #059669; --_fg: #ffffff; --_soft-bg: #d1fae5; --_soft-fg: #064e3b; --_border: #059669; }
+:host(.cui-badge--neutral)   { --_bg: var(--mat-sys-surface-variant); --_fg: var(--mat-sys-on-surface-variant); --_soft-bg: var(--mat-sys-surface-container); --_soft-fg: var(--mat-sys-on-surface-variant); --_border: var(--mat-sys-outline); }
+
+// ── Variants ──────────────────────────────────────────────────────────────────
+:host(.cui-badge--filled)   { background: var(--_bg);      color: var(--_fg); }
+:host(.cui-badge--soft)     { background: var(--_soft-bg); color: var(--_soft-fg); }
+:host(.cui-badge--outlined) { background: transparent; color: var(--_fg); border: 1.5px solid var(--_border); padding-top: 1px; padding-bottom: 1px; }

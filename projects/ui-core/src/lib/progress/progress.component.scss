@@ -1,0 +1,55 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+// Color variables
+:host(.cui-progress--primary)   { --_fill: var(--mat-sys-primary); }
+:host(.cui-progress--secondary) { --_fill: var(--mat-sys-secondary); }
+:host(.cui-progress--tertiary)  { --_fill: var(--mat-sys-tertiary); }
+:host(.cui-progress--error)     { --_fill: var(--mat-sys-error); }
+:host(.cui-progress--success)   { --_fill: #059669; }
+:host(.cui-progress--warning)   { --_fill: #d97706; }
+
+.cui-progress__track {
+  width: 100%;
+  background: var(--mat-sys-surface-container-high);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cui-progress__fill {
+  height: 100%;
+  background: var(--_fill);
+  border-radius: 999px;
+  transition: width 300ms ease;
+
+  &--indeterminate {
+    animation: cui-progress-slide 1.5s ease-in-out infinite;
+    transform-origin: left;
+  }
+
+  &--striped {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      color-mix(in srgb, white 20%, transparent) 10px,
+      color-mix(in srgb, white 20%, transparent) 20px
+    );
+  }
+}
+
+.cui-progress__label {
+  font-size: 12px;
+  color: var(--mat-sys-on-surface-variant);
+  text-align: right;
+}
+
+@keyframes cui-progress-slide {
+  0%   { transform: translateX(-100%) scaleX(0.5); }
+  50%  { transform: translateX(50%)  scaleX(0.8); }
+  100% { transform: translateX(200%) scaleX(0.5); }
+}

@@ -1,0 +1,10 @@
+<div class="cui-progress__track" [style.height]="height()">
+  <div class="cui-progress__fill"
+    [class.cui-progress__fill--indeterminate]="indeterminate()"
+    [class.cui-progress__fill--striped]="striped()"
+    [style.width]="indeterminate() ? '100%' : pct() + '%'">
+  </div>
+</div>
+@if (showLabel()) {
+  <span class="cui-progress__label">{{ indeterminate() ? 'Loading…' : pct() + '%' }}</span>
+}

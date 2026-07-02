@@ -1,0 +1,19 @@
+@if (showImage()) {
+  <img class="cui-avatar__img"
+    [src]="src()!"
+    [alt]="name() ?? 'avatar'"
+    (error)="onImgError()" />
+} @else {
+  <span class="cui-avatar__initials"
+    [style.font-size.px]="fontSize()"
+    aria-hidden="true">
+    {{ initials() }}
+  </span>
+}
+
+@if (status()) {
+  <span class="cui-avatar__status"
+    [style.background]="statusColor()"
+    [attr.aria-label]="status()">
+  </span>
+}
